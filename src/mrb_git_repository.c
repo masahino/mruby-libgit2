@@ -21,7 +21,7 @@ static void mrb_git_repository_free(mrb_state *mrb, void *ptr) {
   }
 }
 
-static const struct mrb_data_type mrb_git_repository_data_type = {
+const struct mrb_data_type mrb_git_repository_data_type = {
   "mrb_git_repository_data", mrb_git_repository_free,
 };
 

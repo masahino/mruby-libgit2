@@ -13,7 +13,9 @@
 #include "mrb_libgit2.h"
 #include "git2.h"
 #include "mrb_git_repository.h"
+#include "mrb_git_clone.h"
 #include "mrb_git_index.h"
+#include "mrb_git_blame.h"
 
 static mrb_value
 mrb_git_libgit2_init(mrb_state *mrb, mrb_value self)
@@ -22,7 +24,6 @@ mrb_git_libgit2_init(mrb_state *mrb, mrb_value self)
   ret = git_libgit2_init();
   mrb_mod_cv_set(mrb, mrb_module_get(mrb, "Git"), mrb_intern_cstr(mrb, "@@git_init_count"),
     mrb_fixnum_value(ret));
-  fprintf(stderr, "call libgit2_init %d\n", ret);
   return mrb_fixnum_value(ret);
 }
 
@@ -53,7 +54,9 @@ void mrb_mruby_libgit2_gem_init(mrb_state *mrb)
 
   mrb_define_module_function(mrb, git, "libgit2_init_count", mrb_git_libgit2_init_count, MRB_ARGS_NONE());
   mrb_mruby_git_repository_init(mrb, git);
+  mrb_mruby_git_clone_init(mrb, git);
   mrb_mruby_git_index_init(mrb, git);
+  mrb_mruby_git_blame_init(mrb, git);
 }
 
 void mrb_mruby_libgit2_gem_final(mrb_state *mrb)

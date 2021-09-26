@@ -41,7 +41,7 @@ mrb_git_index_add(mrb_state *mrb, mrb_value self)
   if (ret < 0) {
     mrb_raisef(mrb, E_RUNTIME_ERROR, "error %d", ret);
   }
-  return self;
+  return mrb_fixnum_value(ret);
 }
 
 static mrb_value
